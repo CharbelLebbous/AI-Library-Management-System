@@ -868,7 +868,7 @@ def chat_search_books(
 
     client = _openai_client()
     small_talk_answer = _small_talk_response(clean_question)
-    if small_talk_answer:
+    if small_talk_answer and client is None:
         chat_memory_store.append_turn(conv_id, clean_question, small_talk_answer)
         return {
             "answer": small_talk_answer,
@@ -900,6 +900,22 @@ def chat_search_books(
     ]
 
     if not sources:
+        if client is not None:
+            try:
+                answer, _ = _llm_chat_answer(client, clean_question, history, [])
+                if answer:
+                    chat_memory_store.append_turn(conv_id, clean_question, answer)
+                    return {
+                        "answer": answer,
+                        "sources": [],
+                        "blocked": False,
+                        "reason": None,
+                        "retrieval_method": f"{retrieval_method}_conversational_empty_catalog",
+                        "conversation_id": conv_id,
+                    }
+            except Exception:
+                logger.exception("Conversational LLM call failed with empty catalog")
+
         answer = "I could not find relevant books in this catalog."
         chat_memory_store.append_turn(conv_id, clean_question, answer)
         return {
