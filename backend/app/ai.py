@@ -868,7 +868,7 @@ def chat_search_books(
 
     client = _openai_client()
     small_talk_answer = _small_talk_response(clean_question)
-    if small_talk_answer and client is None:
+    if small_talk_answer:
         chat_memory_store.append_turn(conv_id, clean_question, small_talk_answer)
         return {
             "answer": small_talk_answer,
