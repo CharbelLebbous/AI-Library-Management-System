@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.config import settings
 from app.routers import ai, books, users
 
-app = FastAPI(title="Aspire Library AI", version="1.0.0")
+app = FastAPI(title="AI Library Management System", version="1.0.0")
 
 allowed_origins = {
     settings.frontend_origin.rstrip("/"),

@@ -38,7 +38,7 @@ export default function App() {
 
   const [chatQuestion, setChatQuestion] = useState("");
   const [chatResult, setChatResult] = useState<ChatSearchResponse | null>(null);
-  const [conversationId, setConversationId] = useState(() => localStorage.getItem("aspire_chat_conversation_id") ?? "");
+  const [conversationId, setConversationId] = useState(() => localStorage.getItem("library_ai_chat_conversation_id") ?? "");
   const [chatLoading, setChatLoading] = useState(false);
   const [uiError, setUiError] = useState("");
   const [uiInfo, setUiInfo] = useState("");
@@ -72,7 +72,7 @@ export default function App() {
       }
 
       if (!authIsAuthenticated || !authGetAccessTokenSilently) {
-        localStorage.removeItem("aspire_auth_token");
+        localStorage.removeItem("library_ai_auth_token");
         setAuthTokenResolver(async () => "");
         setAuthApiReady(false);
         return;
@@ -81,10 +81,10 @@ export default function App() {
       try {
         const token = await authGetAccessTokenSilently();
         if (cancelled) return;
-        localStorage.setItem("aspire_auth_token", token);
+        localStorage.setItem("library_ai_auth_token", token);
         setAuthTokenResolver(async () => {
           const latestToken = await authGetAccessTokenSilently();
-          localStorage.setItem("aspire_auth_token", latestToken);
+          localStorage.setItem("library_ai_auth_token", latestToken);
           return latestToken;
         });
         setAuthApiReady(true);
@@ -214,7 +214,7 @@ export default function App() {
       const result = await chatSearch({ question: chatQuestion.trim(), conversationId: conversationId || undefined });
       setChatResult(result);
       setConversationId(result.conversation_id);
-      localStorage.setItem("aspire_chat_conversation_id", result.conversation_id);
+      localStorage.setItem("library_ai_chat_conversation_id", result.conversation_id);
       setUiError("");
       if (result.blocked) {
         setUiInfo("I could not answer that. Please ask a library-related question.");
@@ -233,7 +233,7 @@ export default function App() {
     setConversationId("");
     setChatQuestion("");
     setChatResult(null);
-    localStorage.removeItem("aspire_chat_conversation_id");
+    localStorage.removeItem("library_ai_chat_conversation_id");
     setUiError("");
     setUiInfo("Started a new chat.");
   };
@@ -263,7 +263,7 @@ export default function App() {
       <main className="app-layout">
         <header className="card hero reveal">
           <div className="hero-kicker">AI-FIRST LIBRARY OPERATIONS</div>
-          <h1 className="hero-title">Aspire Library AI</h1>
+          <h1 className="hero-title">AI Library Management System</h1>
           <p className="hero-subtitle">
             Production-style catalog management with role-aware access, secure SSO, and conversational semantic RAG.
           </p>

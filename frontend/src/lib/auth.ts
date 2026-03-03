@@ -6,13 +6,13 @@ const authAudience = (import.meta.env.VITE_AUTH0_AUDIENCE ?? "").trim();
 
 export function getToken(): string {
   if (authEnabled) {
-    return localStorage.getItem("aspire_auth_token") ?? "";
+    return localStorage.getItem("library_ai_auth_token") ?? "";
   }
-  return localStorage.getItem("aspire_dev_token") ?? "admin:admin@example.com";
+  return localStorage.getItem("library_ai_dev_token") ?? "admin:admin@example.com";
 }
 
 export function setDevToken(token: string): void {
-  localStorage.setItem("aspire_dev_token", token);
+  localStorage.setItem("library_ai_dev_token", token);
 }
 
 export function isAuthEnabled(): boolean {

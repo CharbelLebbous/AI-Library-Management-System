@@ -41,7 +41,7 @@ describe("App", () => {
       </QueryClientProvider>
     );
 
-    expect(screen.getByText(/Aspire Library AI/i)).toBeInTheDocument();
+    expect(screen.getByText(/AI Library Management System/i)).toBeInTheDocument();
     expect(await screen.findByText(/Money management basics\./i)).toBeInTheDocument();
   });
 });

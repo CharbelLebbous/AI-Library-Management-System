@@ -34,7 +34,7 @@ class EvalResult:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Run deterministic AI chat evaluation cases for Aspire Library AI."
+        description="Run deterministic AI chat evaluation cases for AI Library Management System."
     )
     parser.add_argument(
         "--strict",

@@ -17,7 +17,7 @@ from .db import get_db
 from .models import Role, User
 
 bearer_scheme = HTTPBearer(auto_error=False)
-ROLE_CLAIM = "https://aspire.example.com/roles"
+ROLE_CLAIM = "https://library-ai.example.com/roles"
 
 
 @dataclass

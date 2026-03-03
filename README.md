@@ -1,6 +1,6 @@
-# Aspire Library AI (Version 1)
+# AI Library Management System
 
-Mini Library Management System for Aspire Software's AI assessment.
+Production-style library management system with secure authentication and AI-assisted retrieval.
 
 ## Features
 
@@ -135,7 +135,7 @@ VITE_AUTH0_AUDIENCE=https://your-api-audience
 
 Auth0 must include role claims in access tokens under:
 
-- `https://aspire.example.com/roles`
+- `https://library-ai.example.com/roles`
 
 ## Tests
 
