@@ -1,1 +1,0 @@
-{"root":["./src/app.test.tsx","./src/app.tsx","./src/api.ts","./src/main.tsx","./src/test-setup.ts","./src/types.ts","./src/components/auth0tokenbridge.tsx","./src/components/authcontrols.tsx","./src/components/devtokenbar.tsx","./src/lib/auth.ts"],"version":"5.9.3"}
