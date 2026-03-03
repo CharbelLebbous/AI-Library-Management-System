@@ -7,6 +7,7 @@ Create Date: 2026-02-28
 
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy.dialects import postgresql
 
 
 revision = "0001_initial"
@@ -16,11 +17,16 @@ depends_on = None
 
 
 def upgrade() -> None:
-    role_enum = sa.Enum("admin", "librarian", "member", name="role")
-    book_status_enum = sa.Enum("available", "borrowed", name="book_status")
+    # Create enum types once (checkfirst), then reuse column enums with create_type=False
+    # to avoid duplicate CREATE TYPE on retried/degraded deploys.
+    role_enum_create = postgresql.ENUM("admin", "librarian", "member", name="role")
+    book_status_enum_create = postgresql.ENUM("available", "borrowed", name="book_status")
 
-    role_enum.create(op.get_bind(), checkfirst=True)
-    book_status_enum.create(op.get_bind(), checkfirst=True)
+    role_enum_create.create(op.get_bind(), checkfirst=True)
+    book_status_enum_create.create(op.get_bind(), checkfirst=True)
+
+    role_enum = postgresql.ENUM("admin", "librarian", "member", name="role", create_type=False)
+    book_status_enum = postgresql.ENUM("available", "borrowed", name="book_status", create_type=False)
 
     op.create_table(
         "users",
